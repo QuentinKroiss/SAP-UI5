@@ -16,7 +16,7 @@
     },
     "sap.ui5": {
         "models": {
-            "oData": {
+            "": {
                 "dataSource": "oDataService"
             }
         },
@@ -58,13 +58,6 @@
     {
         "name": "Detail",
         "pattern": "Detail/{orderId}",
-        "target": [
-            "TargetDetailView"
-        ]
-    },
-    {
-        "name": "OrderDetail",
-        "pattern": "OrderDetail/{orderId}",
         "target": [
             "TargetDetailView"
         ]

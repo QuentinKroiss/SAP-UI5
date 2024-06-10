@@ -17,22 +17,24 @@
         </subHeader>
         <List
             id="PurchaseOrderList"
-            items="{oData>/A_PurchaseOrder}"
+            items="{/A_PurchaseOrder}"
             mode="SingleSelectMaster"
             includeItemInSelection="true"
             updateFinished=".updateOrderCount"
+            selectionChange=".onOrderPress"
+
             itemPress=".onOrderPress">
-            <CustomListItem>
+            <CustomListItem press=".onOrderPress">
                 <HBox>
                     <VBox width="70%">
                         <Text text="Delivery Date: 01.01.1970"/>
-                        <Text text="{oData>PurchaseOrder}" />
-                        <Text text="{oData>AddressName}" />
-                        <Text text="{= 'Created By: ' + ${oData>CreatedByUser} }" class="createdByText" />
+                        <Text text="{PurchaseOrder}" />
+                        <Text text="{AddressName}" />
+                        <Text text="{= 'Created By: ' + ${CreatedByUser} }" class="createdByText" />
                     </VBox>
                     <VBox width="30%" alignItems="End">
-                        <Text text="{path: 'oData>LastChangeDateTime', formatter: '.formatter.dateFormatter'}" />
-                        <Text text="{oData>DocumentCurrency}" />
+                        <Text text="{path: 'LastChangeDateTime', formatter: '.formatter.dateFormatter'}" />
+                        <Text text="{DocumentCurrency}" />
                     </VBox>
                 </HBox>
             </CustomListItem>

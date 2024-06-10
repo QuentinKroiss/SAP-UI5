@@ -1,22 +1,22 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
+    "./BaseController",
     "sap/ui/core/routing/History",
-    "sap/ui/core/UIComponent"
-], function (Controller, History, UIComponent) {
+], function (Controller, History) {
     "use strict";
 
     return Controller.extend("ui5.walkthrough.controller.Detail", {
 
         onInit: function () {
-            var oRouter = UIComponent.getRouterFor(this);
+            this._oDetails = this.getView();
+            var oRouter = this.getRouter();
+            if(oRouter)
             oRouter.getRoute("Detail").attachPatternMatched(this._onObjectMatched, this);
         },
 
         _onObjectMatched: function (oEvent) {
             var sOrderId = oEvent.getParameter("arguments").orderId;
             this.getView().bindElement({
-                path: "/A_PurchaseOrder('" + sOrderId + "')",
-                model: "oData"
+                path: "/A_PurchaseOrder('" + sOrderId + "')"
             });
         },
 

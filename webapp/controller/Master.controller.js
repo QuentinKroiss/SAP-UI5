@@ -41,22 +41,21 @@ sap.ui.define([
             var orderCount = oOrders.length;
             this.getView().getModel("orderModel").setProperty("/orderCount", orderCount);
         },
-        
+
         onOrderPress: function(oEvent) {
-            var oItem = oEvent.getParameter("listItem") || oEvent.getSource();
-            var oContext = oItem.getBindingContext("oData");
-            var sOrderId = oContext.getProperty("PurchaseOrder");
-            
-            // Set the selected order to the model
+            var oItem = oEvent.getSource().getSelectedItem();
+            var oContext = oItem.getBindingContext();
             var oSelectedOrder = oContext.getObject();
+
+            // Set the selected order to the model
             this.getView().getModel("orderModel").setProperty("/selectedOrder", oSelectedOrder);
-        
-            // Navigate to the detail page with the orderId parameter
-            var oRouter = UIComponent.getRouterFor(this);
-            oRouter.navTo("Detail", {
-                orderId: sOrderId
+
+            // Get the SplitApp and set the detail view content
+            var oSplitApp = this.getView().getParent().getParent();
+            var oDetailPage = oSplitApp.getDetailPages()[0];
+            oDetailPage.bindElement({
+                path: oContext.getPath()
             });
         }
-        
     });
 });

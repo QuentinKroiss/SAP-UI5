@@ -12,8 +12,8 @@
         </customHeader>
         <content>
             <VBox>
-                <Label text="{i18n>orderIDLabel}" />
-                <Text text="{orderModel>/selectedOrder/PurchaseOrder}" />
+                <Text text="test"/>
+                <Text text="{PurchaseOrder}" />
 
                 <Label text="{i18n>addressLabel}" />
                 <Text text="{orderModel>/selectedOrder/AddressName}" />
