@@ -1,0 +1,15 @@
+<mvc:View
+    controllerName="ui5.walkthrough.controller.Home"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    displayBlock="true">
+    <SplitApp id="overviewSplitApp" initialDetail="detailPage">
+        <masterPages>
+            <mvc:XMLView viewName="ui5.walkthrough.view.Master" />
+        </masterPages>
+        <detailPages>
+            <mvc:XMLView viewName="ui5.walkthrough.view.Detail" />
+        </detailPages>
+    </SplitApp>
+</mvc:View>

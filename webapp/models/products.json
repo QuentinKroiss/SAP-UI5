@@ -1,0 +1,13 @@
+{
+    "productNumber": "100 Sachen",
+    "appName": "Shopping List App (JsonModel)",
+    "products": [
+        {
+            "name": "Bier",
+            "quantity": 1789,
+            "urgency": true,
+            "comment": "Bier wird immer gebraucht",
+            "createdby": "Boris Bierliebhaber"
+        }
+    ]
+}

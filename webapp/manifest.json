@@ -1,0 +1,103 @@
+{
+    "_version": "1.58.0",
+    "sap.app": {
+        "id": "ui5.walkthrough",
+        "type": "application",
+        "title": "Eine App",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "dataSources": {
+            "oDataService": {
+                "uri": "/sap/opu/odata/sap/ZOSO_PURCHASEORDER/",
+                "type": "OData"
+            }
+        }
+    },
+    "sap.ui5": {
+        "models": {
+            "oData": {
+                "dataSource": "oDataService"
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/createdByText.css"
+                },
+                {
+                    "uri": "css/titleStyle.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "async": true,
+                "viewPath": "ui5.walkthrough.view",
+                "controlAggregation": "pages",
+                "controlId": "app",
+                "clearControlAggregation": false
+            },
+			"routes": [
+   				 {
+        			"name": "StartScreenView",
+        			"pattern": "",
+        			"target": [
+            		"StartScreenView"
+        			]
+    			},
+    			{
+        "name": "RouteHomeView",
+        "pattern": "home",
+        "target": [
+            "TargetHomeView"
+        ]
+    },
+    {
+        "name": "Detail",
+        "pattern": "Detail/{orderId}",
+        "target": [
+            "TargetDetailView"
+        ]
+    },
+    {
+        "name": "OrderDetail",
+        "pattern": "OrderDetail/{orderId}",
+        "target": [
+            "TargetDetailView"
+        ]
+    }
+],
+
+            "targets": {
+                "StartScreenView": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "StartScreen",
+                    "viewName": "StartScreen"
+                },
+                "TargetHomeView": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "Home",
+                    "viewName": "Home"
+                },
+                "TargetDetailView": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "Detail",
+                    "viewName": "Detail"
+                }
+            }
+        },
+        "rootView": {
+            "viewName": "ui5.walkthrough.view.App",
+            "type": "XML"
+        }
+    }
+}

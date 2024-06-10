@@ -1,0 +1,41 @@
+<mvc:View
+    controllerName="ui5.walkthrough.controller.Master"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page id="masterPage" backgroundDesign="List">
+        <customHeader>
+            <OverflowToolbar>
+                <ToolbarSpacer />
+                <Title text="{= 'Purchase Orders (' + ${orderModel>/orderCount} + ')' }" />
+                <ToolbarSpacer />
+            </OverflowToolbar>
+        </customHeader>
+        <subHeader>
+            <OverflowToolbar>
+                <SearchField liveChange=".onSearch" width="100%" />
+            </OverflowToolbar>
+        </subHeader>
+        <List
+            id="PurchaseOrderList"
+            items="{oData>/A_PurchaseOrder}"
+            mode="SingleSelectMaster"
+            includeItemInSelection="true"
+            updateFinished=".updateOrderCount"
+            itemPress=".onOrderPress">
+            <CustomListItem>
+                <HBox>
+                    <VBox width="70%">
+                        <Text text="Delivery Date: 01.01.1970"/>
+                        <Text text="{oData>PurchaseOrder}" />
+                        <Text text="{oData>AddressName}" />
+                        <Text text="{= 'Created By: ' + ${oData>CreatedByUser} }" class="createdByText" />
+                    </VBox>
+                    <VBox width="30%" alignItems="End">
+                        <Text text="{path: 'oData>LastChangeDateTime', formatter: '.formatter.dateFormatter'}" />
+                        <Text text="{oData>DocumentCurrency}" />
+                    </VBox>
+                </HBox>
+            </CustomListItem>
+        </List>
+    </Page>
+</mvc:View>

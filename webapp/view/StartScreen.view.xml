@@ -1,0 +1,22 @@
+<mvc:View
+    controllerName="ui5.walkthrough.controller.StartScreen"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:f="sap.f"
+    xmlns="sap.m">
+    <f:DynamicPage id="page">
+        <f:content>
+            <VBox direction="Row" alignItems="Center" justifyContent="Center" width="100%"
+                height="100%">
+                <VBox alignItems="Center">
+                    <Image src="/img/oso_logo.png"/>
+
+                    <Title text="{product>/appName}" titleStyle="H1" class="sapUiMediumMarginTop" />
+                    <Button press="onPress"  text="{i18n>buttonText}" class="sapUiMediumMarginBottom sapUiMediumMarginTop" />
+                    <HBox>   
+                            <Image src="/img/oso_logo.png"/>
+                    </HBox>
+                </VBox>
+            </VBox>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>

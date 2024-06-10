@@ -1,0 +1,26 @@
+<mvc:View
+    controllerName="ui5.walkthrough.controller.Detail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page id="detailPage" title="Purchase Order">
+        <customHeader>
+            <OverflowToolbar class="sapMHeader-CTX detailBackground">
+                <ToolbarSpacer />
+                <Title text="Purchase Order"/>
+                <ToolbarSpacer />
+            </OverflowToolbar>
+        </customHeader>
+        <content>
+            <VBox>
+                <Label text="{i18n>orderIDLabel}" />
+                <Text text="{orderModel>/selectedOrder/PurchaseOrder}" />
+
+                <Label text="{i18n>addressLabel}" />
+                <Text text="{orderModel>/selectedOrder/AddressName}" />
+
+                <Label text="{i18n>createdByLabel}" />
+                <Text text="{= 'Created By: ' + ${orderModel>/selectedOrder/CreatedByUser} }" class="createdByText" />
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>
