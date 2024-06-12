@@ -1,6 +1,7 @@
 <mvc:View
     controllerName="ui5.walkthrough.controller.Detail"
     xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
     xmlns="sap.m">
     <Page id="detailPage" title="Purchase Order">
         <customHeader>
@@ -34,65 +35,127 @@
                         <Text text="{path: 'LastChangeDateTime', formatter: '.formatter.dateFormatter'}" textAlign="Right" />
                     </VBox>
                 </HBox>
-                <HBox>
-                    <Button icon="sap-icon://hint" press=".onInfoPress"/>
-                    <Button icon="sap-icon://notes" press=".onNotepadPress"/>
-                </HBox>
             </VBox>
-            <!-- New Section for Detailed Content -->
-            <VBox id="detailedContent" visible="{view>/showDetailedContent}" justifyContent="Center" alignItems="Center" width="100%">
-                <HBox width="80%">
-                    <FlexBox justifyContent="End" width="20%">
-                        <Text text="Purchase Order:" class="colorGrey"/>
-                    </FlexBox>
-                    <FlexBox justifyContent="Start" >
-                        <Text text="{= ${PurchaseOrder} !== null ? ${PurchaseOrder} : ''}" class="labelTextSpacing"/>
-                    </FlexBox>
-                </HBox>
-                <HBox width="80%">
-                    <FlexBox justifyContent="End"  width="20%">
-                        <Text text="Delivery Date:" class="colorGrey"/>
-                    </FlexBox>
-                    <FlexBox justifyContent="Start" visible="{= ${PurchaseOrder} !== null}">
-                        <Text text="01.01.1970" class="labelTextSpacing"/>
-                    </FlexBox>
-                </HBox>
-                <HBox width="80%">
-                    <FlexBox justifyContent="End"  width="20%">
-                        <Text text="Payment Terms:" class="colorGrey"/>
-                    </FlexBox>
-                    <FlexBox justifyContent="Start"  visible="{= (${CashDiscount1Days} !== null || ${CashDiscount1Percent} !== null) || (${CashDiscount2Days} !== null || ${CashDiscount2Percent} !== null)}">
-                        <Text text="{ parts: [{path: 'CashDiscount1Days'}, {path: 'CashDiscount1Percent'}], formatter: '.formatCashDiscount' }" class="labelTextSpacing" />
-                        <Text text="/" class="labelTextSpacing" />
-                        <Text text="{ parts: [{path: 'CashDiscount2Days'}, {path: 'CashDiscount2Percent'}], formatter: '.formatCashDiscount' }" class="labelTextSpacing" />
-                        <Text text="/" class="labelTextSpacing" />
-                        <Text text="{NetPaymentDays}" class="labelTextSpacing" />
-                        <Text text="Tage Netto" class="labelTextSpacing" />
-                    </FlexBox>
-                </HBox>
-                <HBox width="80%">
-                    <FlexBox justifyContent="End"  width="20%">
-                        <Text text="Incoterms:" class="colorGrey"/>
-                    </FlexBox>
-                    <FlexBox justifyContent="Start">
-                        <Text text="{ parts: [{path: 'IncotermsClassification'}, {path: 'IncotermsLocation1'}], formatter: '.formatIncoterms' }" class="labelTextSpacing" />
-                    </FlexBox>
-                </HBox>
-
-                <HBox width="80%">
-                    <FlexBox justifyContent="End" width="20%">
-                        <Text text="CompanyCode:" class="colorGrey"/>
-                    </FlexBox>
-                    <FlexBox justifyContent="Start">
-                        <Text text="{= ${CompanyCode} !== null ? ${CompanyCode} : ''}" class="labelTextSpacing"/>
-                    </FlexBox>
-                </HBox>
-            </VBox>
-            <VBox id="noteContent" visible="{view>/showNoteContent}" justifyContent="Center" alignItems="Center" width="100%">
-                <HBox width="50%">
-                        <Text text="Hier muss noch der Inhalt eingefügt werden!:" />
-                </HBox>                
-            </VBox>
+            
+            <IconTabBar id="idIconTabBarMulti" backgroundDesign="Translucent" >
+            
+                <items>
+                    <IconTabFilter icon="sap-icon://hint"  text="Info" iconColor="Neutral">
+                        <VBox justifyContent="Center" alignItems="Center" width="100%">
+                            <HBox width="80%">
+                                <FlexBox justifyContent="End" width="20%">
+                                    <Text text="Purchase Order:" class="colorGrey"/>
+                                </FlexBox>
+                                <FlexBox justifyContent="Start">
+                                    <Text text="{= ${PurchaseOrder} !== null ? ${PurchaseOrder} : ''}" class="labelTextSpacing"/>
+                                </FlexBox>
+                            </HBox>
+                            <HBox width="80%">
+                                <FlexBox justifyContent="End" width="20%">
+                                    <Text text="Delivery Date:" class="colorGrey"/>
+                                </FlexBox>
+                                <FlexBox justifyContent="Start" visible="{= ${PurchaseOrder} !== null}">
+                                    <Text text="01.01.1970" class="labelTextSpacing"/>
+                                </FlexBox>
+                            </HBox>
+                            <HBox width="80%">
+                                <FlexBox justifyContent="End" width="20%">
+                                    <Text text="Payment Terms:" class="colorGrey"/>
+                                </FlexBox>
+                                <FlexBox justifyContent="Start" visible="{= (${CashDiscount1Days} !== null || ${CashDiscount1Percent} !== null) || (${CashDiscount2Days} !== null || ${CashDiscount2Percent} !== null)}">
+                                    <Text text="{ parts: [{path: 'CashDiscount1Days'}, {path: 'CashDiscount1Percent'}], formatter: '.formatCashDiscount' }" class="labelTextSpacing" />
+                                    <Text text="/" class="labelTextSpacing" />
+                                    <Text text="{ parts: [{path: 'CashDiscount2Days'}, {path: 'CashDiscount2Percent'}], formatter: '.formatCashDiscount' }" class="labelTextSpacing" />
+                                    <Text text="/" class="labelTextSpacing" />
+                                    <Text text="{NetPaymentDays}" class="labelTextSpacing" />
+                                    <Text text="Tage Netto" class="labelTextSpacing" />
+                                </FlexBox>
+                            </HBox>
+                            <HBox width="80%">
+                                <FlexBox justifyContent="End" width="20%">
+                                    <Text text="Incoterms:" class="colorGrey"/>
+                                </FlexBox>
+                                <FlexBox justifyContent="Start">
+                                    <Text text="{ parts: [{path: 'IncotermsClassification'}, {path: 'IncotermsLocation1'}], formatter: '.formatIncoterms' }" class="labelTextSpacing" />
+                                </FlexBox>
+                            </HBox>
+                            <HBox width="80%">
+                                <FlexBox justifyContent="End" width="20%">
+                                    <Text text="CompanyCode:" class="colorGrey"/>
+                                </FlexBox>
+                                <FlexBox justifyContent="Start">
+                                    <Text text="{= ${CompanyCode} !== null ? ${CompanyCode} : ''}" class="labelTextSpacing"/>
+                                </FlexBox>
+                            </HBox>
+                        </VBox>
+                    </IconTabFilter>
+                    <IconTabFilter icon="sap-icon://notes" text="Notes" iconColor="Default">
+                        <VBox width="100%">
+                            <List>
+                                <items>
+                                    <CustomListItem>
+                                        <HBox alignItems="Center">
+                                            <core:Icon src="sap-icon://person-placeholder" class="personIcon"/>
+                                            <VBox justifyContent="Start" alignItems="Start" width="100%" visible="{= ${PurchaseOrder} !== null}">
+                                                <HBox>
+                                                    <Text text="Bestandsprüfung ergab erreichen des Break-Even-Points am 19.06.2024." class="customMarginTop"/>
+                                                </HBox>
+                                                <Text text="Commented by: {CreatedByUser} (14.06.2024)" class="createdByText1"/>
+                                            </VBox>
+                                        </HBox>
+                                    </CustomListItem>
+                                    <CustomListItem>
+                                        <HBox alignItems="Center">
+                                            <core:Icon src="sap-icon://person-placeholder" class="personIcon"/>
+                                            <VBox justifyContent="Start" alignItems="Start" width="100%" visible="{= ${PurchaseOrder} !== null}" class="customMarginTop">
+                                                <HBox>
+                                                    <Text text="Diese Bestellung ist dringend für die Produktion." class="sapUiTinyMarginEnd"/>
+                                                </HBox>
+                                                <Text text="Commented by: Mary (12.06.2024)" class="createdByText1"/>
+                                            </VBox>
+                                        </HBox>
+                                    </CustomListItem>
+                                </items>
+                            </List>
+                        </VBox>
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
         </content>
+        <VBox>
+            <HBox>
+                <VBox >
+                    <Text text="Order Item Numbers ()"  />
+                </VBox>
+            </HBox>
+        </VBox>
+        <Table id="purchaseOrderTable" items="{path: 'to_PurchaseOrderItem'}">
+            <columns>
+                <Column>
+                    <header>
+                        <Label text="Description"/>
+                    </header>
+                </Column>
+                <Column>
+                    <header>
+                        <Label text="Item Category"/>
+                    </header>
+                </Column>
+                <Column>
+                    <header>
+                        <Label text="Quantity"/>
+                    </header>
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem>
+                    <cells>
+                        <Text text="{PurchaseOrderItemText}"/>
+                        <Text text="{PurchaseOrderItemCategory}"/>
+                        <Text text="{OrderQuantity}"/>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
     </Page>
 </mvc:View>

@@ -42,6 +42,9 @@
                 },
                 {
                     "uri": "css/colorGrey.css"
+                },
+                {
+                    "uri": "css/notes.css"
                 }
             ]
         },
