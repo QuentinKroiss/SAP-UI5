@@ -1,10 +1,8 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/m/MessageToast",
     "sap/ui/core/UIComponent",
     "sap/ui/model/resource/ResourceModel",
-    "sap/ui/model/json/JSONModel"
- ], function(Controller, MessageToast, UIComponent, ResourceModel, JSONModel){
+ ], function(Controller, UIComponent, ResourceModel){
     "use strict";
  
     return Controller.extend("ui5.walkthrough.controller.StartScreen", {

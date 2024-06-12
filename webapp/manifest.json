@@ -27,6 +27,21 @@
                 },
                 {
                     "uri": "css/titleStyle.css"
+                },
+                {
+                    "uri": "css/detailBox.css"
+                },
+                {
+                    "uri": "css/customAdress.css"
+                },
+                {
+                    "uri": "css/detailCreatedBy.css"
+                },
+                {
+                    "uri": "css/labelTextSpacing.css"
+                },
+                {
+                    "uri": "css/colorGrey.css"
                 }
             ]
         },
