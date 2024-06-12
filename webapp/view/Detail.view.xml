@@ -122,40 +122,51 @@
                 </items>
             </IconTabBar>
         </content>
-        <VBox>
-            <HBox>
-                <VBox >
-                    <Text text="Order Item Numbers ()"  />
-                </VBox>
-            </HBox>
-        </VBox>
-        <Table id="purchaseOrderTable" items="{path: 'to_PurchaseOrderItem'}">
-            <columns>
-                <Column>
-                    <header>
-                        <Label text="Description"/>
-                    </header>
-                </Column>
-                <Column>
-                    <header>
-                        <Label text="Item Category"/>
-                    </header>
-                </Column>
-                <Column>
-                    <header>
-                        <Label text="Quantity"/>
-                    </header>
-                </Column>
-            </columns>
-            <items>
-                <ColumnListItem>
-                    <cells>
-                        <Text text="{PurchaseOrderItemText}"/>
-                        <Text text="{PurchaseOrderItemCategory}"/>
-                        <Text text="{OrderQuantity}"/>
-                    </cells>
-                </ColumnListItem>
-            </items>
-        </Table>
+        <Panel headerText="{= 'Items (' + ${detailModel>/orderItemCount} + ')' }" expandable="true" expanded="true" class="sapUiResponsiveMargin">
+            <content>
+<Table id="purchaseOrderTable" items="{path: 'to_PurchaseOrderItem'}" updateFinished=".updateOrderItemCount">
+    <columns>
+        <Column>
+            <header>
+                <Label text="Description"/>
+            </header>
+        </Column>
+        <Column>
+            <header>
+                <Label text="Item Category"/>
+            </header>
+        </Column>
+        <Column>
+            <header>
+                <Label text="Quantity"/>
+            </header>
+        </Column>
+        <Column>
+            <header>
+                <Label text="Price/Pc."/>
+            </header>
+        </Column>
+        <Column>
+            <header>
+                <Label text="Subtotal"/>
+            </header>
+        </Column>
+    </columns>
+    <items>
+        <ColumnListItem>
+            <cells>
+                <Text text="{PurchaseOrderItemText}"/>
+                <Text text="{PurchaseOrderItemCategory}"/>
+                <Text text="{OrderQuantity}"/>
+                <Text text="{ path: 'NetPriceAmount', formatter: '.formatPricePerPiece' }"/>
+                <Text text="{parts: [{path: 'OrderQuantity'}, {path: 'NetPriceAmount'}], formatter: '.calculateSubtotal'}"/>
+
+            </cells>
+        </ColumnListItem>
+    </items>
+</Table>
+
+            </content>
+        </Panel>
     </Page>
 </mvc:View>
