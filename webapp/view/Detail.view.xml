@@ -12,35 +12,23 @@
             </OverflowToolbar>
         </customHeader>
         <content>
-            <VBox class="detailBox">
-                <HBox>
-                    <VBox width="70%">
-                        <Text text="{AddressName}" class="customAdress" />
-                        <Text text="" />
-                    </VBox>
-                    <ToolbarSpacer />
-                    <ToolbarSpacer />
-                    <VBox width="30%" alignItems="End">
-                        <Text text="{DocumentCurrency}" textAlign="Right" />
-                    </VBox>
-                </HBox>
-                <HBox>
-                    <VBox width="70%">
-                        <Text text="{CreatedByUser}" class="detailCreatedBy" />
-                        <Text text="" />
-                    </VBox>
-                    <ToolbarSpacer />
-                    <ToolbarSpacer />
-                    <VBox width="30%" alignItems="End">
-                        <Text text="{path: 'LastChangeDateTime', formatter: '.formatter.dateFormatter'}" textAlign="Right" />
-                    </VBox>
-                </HBox>
-            </VBox>
+
+<ObjectHeader
+    title="{AddressName}"
+    titleActive="true"
+    number="{detailModel>/totalSubtotal}"
+    numberUnit="{DocumentCurrency}"
+    class="sapMHeader-CTX detailBackground"
+>
+    <attributes>
+        <ObjectAttribute title="Created By" text="{CreatedByUser}" class="detailCreatedBy"/>
+        <ObjectAttribute text="Last Changed at: {path: 'LastChangeDateTime', formatter: '.formatter.dateFormatter'}" />
+    </attributes>
+</ObjectHeader>
             
             <IconTabBar id="idIconTabBarMulti" backgroundDesign="Translucent" >
-            
                 <items>
-                    <IconTabFilter icon="sap-icon://hint"  text="Info" iconColor="Neutral">
+                    <IconTabFilter icon="sap-icon://hint" text="Info" iconColor="Neutral">
                         <VBox justifyContent="Center" alignItems="Center" width="100%">
                             <HBox width="80%">
                                 <FlexBox justifyContent="End" width="20%">
@@ -89,7 +77,7 @@
                             </HBox>
                         </VBox>
                     </IconTabFilter>
-                    <IconTabFilter icon="sap-icon://notes" text="Notes" iconColor="Default">
+                    <IconTabFilter icon="sap-icon://notes" count="2" text="Notes" iconColor="Default">
                         <VBox width="100%">
                             <List>
                                 <items>
@@ -122,50 +110,48 @@
                 </items>
             </IconTabBar>
         </content>
-        <Panel headerText="{= 'Items (' + ${detailModel>/orderItemCount} + ')' }" expandable="true" expanded="true" class="sapUiResponsiveMargin">
+        <Panel id="orderItemsPanel" headerText="{= 'Items (' + ${detailModel>/orderItemCount} + ')' }" expandable="true" expanded="true" class="sapUiResponsiveMargin">
             <content>
-<Table id="purchaseOrderTable" items="{path: 'to_PurchaseOrderItem'}" updateFinished=".updateOrderItemCount">
-    <columns>
-        <Column>
-            <header>
-                <Label text="Description"/>
-            </header>
-        </Column>
-        <Column>
-            <header>
-                <Label text="Item Category"/>
-            </header>
-        </Column>
-        <Column>
-            <header>
-                <Label text="Quantity"/>
-            </header>
-        </Column>
-        <Column>
-            <header>
-                <Label text="Price/Pc."/>
-            </header>
-        </Column>
-        <Column>
-            <header>
-                <Label text="Subtotal"/>
-            </header>
-        </Column>
-    </columns>
-    <items>
-        <ColumnListItem>
-            <cells>
-                <Text text="{PurchaseOrderItemText}"/>
-                <Text text="{PurchaseOrderItemCategory}"/>
-                <Text text="{OrderQuantity}"/>
-                <Text text="{ path: 'NetPriceAmount', formatter: '.formatPricePerPiece' }"/>
-                <Text text="{parts: [{path: 'OrderQuantity'}, {path: 'NetPriceAmount'}], formatter: '.calculateSubtotal'}"/>
-
-            </cells>
-        </ColumnListItem>
-    </items>
-</Table>
-
+                <Table id="purchaseOrderTable" items="{path: 'to_PurchaseOrderItem'}" updateFinished=".onTableUpdateFinished">
+                    <columns>
+                        <Column>
+                            <header>
+                                <Label text="Description"/>
+                            </header>
+                        </Column>
+                        <Column>
+                            <header>
+                                <Label text="Item Category"/>
+                            </header>
+                        </Column>
+                        <Column>
+                            <header>
+                                <Label text="Quantity"/>
+                            </header>
+                        </Column>
+                        <Column>
+                            <header>
+                                <Label text="Price/Pc."/>
+                            </header>
+                        </Column>
+                        <Column>
+                            <header>
+                                <Label text="Subtotal"/>
+                            </header>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{PurchaseOrderItemText}"/>
+                                <Text text="{PurchaseOrderItemCategory}"/>
+                                <Text text="{OrderQuantity}"/>
+                                <Text text="{ path: 'NetPriceAmount', formatter: '.formatPricePerPiece' }"/>
+                                <Text text="{parts: [{path: 'OrderQuantity'}, {path: 'NetPriceAmount'}], formatter: '.calculateSubtotal'}"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
             </content>
         </Panel>
     </Page>

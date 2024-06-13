@@ -12,9 +12,31 @@ sap.ui.define([
 
         onInit: function() {
             var oModel = new JSONModel({
-                orderItemCount: 0
+                orderItemCount: 0,
             });
             this.getView().setModel(oModel, "detailModel");
+        },
+
+        onTableUpdateFinished: function () {
+            var oTable = this.byId("purchaseOrderTable");
+            var aItems = oTable.getItems();
+            var fTotal = 0;
+
+            aItems.forEach(function (oItem) {
+                var oContext = oItem.getBindingContext();
+                var fOrderQuantity = parseFloat(oContext.getProperty("OrderQuantity"));
+                var fNetPriceAmount = parseFloat(oContext.getProperty("NetPriceAmount"));
+                var fSubtotal = fOrderQuantity * fNetPriceAmount;
+                fTotal += isNaN(fSubtotal) ? 0 : fSubtotal;
+            });
+
+            // Update the panel header text
+            var oPanel = this.byId("orderItemsPanel");
+            var orderItemCount = aItems.length;
+            oPanel.setHeaderText("Items (" + orderItemCount + ")");
+
+            // Update the total subtotal text in the model
+            this.getView().getModel("detailModel").setProperty("/totalSubtotal", fTotal.toFixed(2));
         },
 
         updateOrderItemCount: function() {
@@ -30,15 +52,13 @@ sap.ui.define([
             // Tausenderstellen mit einem Punkt trennen
             price = price.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
             return price;
-        },        
+        },
 
-        calculateSubtotal: function(quantity, price) {
-            var subtotal = quantity * price;
-            // Den Wert auf zwei Nachkommastellen begrenzen und das Dezimaltrennzeichen ersetzen
-            subtotal = subtotal.toFixed(2).replace('.', ',');
-            // Tausenderstellen mit einem Punkt trennen
-            subtotal = subtotal.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-            return subtotal;
+        calculateSubtotal: function(orderQuantity, netPriceAmount) {
+            var fOrderQuantity = parseFloat(orderQuantity);
+            var fNetPriceAmount = parseFloat(netPriceAmount);
+            var fSubtotal = fOrderQuantity * fNetPriceAmount;
+            return isNaN(fSubtotal) ? "0.00" : fSubtotal.toFixed(2);
         },
 
         onNavBack: function () {
@@ -71,6 +91,12 @@ sap.ui.define([
                 percent = parseFloat(percent).toFixed(2).replace('.', ',');
             }
             return days + " Tage, " + percent + " %";
+        },
+        formatObjectHeaderAttributes: function(totalSubtotal) {
+            return [{
+                title: "Total Subtotal",
+                text: totalSubtotal
+            }];
         }
 
     });
