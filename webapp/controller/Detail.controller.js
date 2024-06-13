@@ -30,13 +30,11 @@ sap.ui.define([
                 fTotal += isNaN(fSubtotal) ? 0 : fSubtotal;
             });
 
-            // Update the panel header text
             var oPanel = this.byId("orderItemsPanel");
             var orderItemCount = aItems.length;
             oPanel.setHeaderText("Items (" + orderItemCount + ")");
 
-            // Update the total subtotal text in the model
-            this.getView().getModel("detailModel").setProperty("/totalSubtotal", fTotal.toFixed(2));
+            this.getView().getModel("detailModel").setProperty("/totalSubtotal", this.formatTotalSubtotal(fTotal));
         },
 
         updateOrderItemCount: function() {
@@ -47,9 +45,7 @@ sap.ui.define([
         },
 
         formatPricePerPiece: function(price) {
-            // Das Dezimaltrennzeichen ersetzen
             price = price.replace('.', ',');
-            // Tausenderstellen mit einem Punkt trennen
             price = price.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
             return price;
         },
@@ -58,8 +54,14 @@ sap.ui.define([
             var fOrderQuantity = parseFloat(orderQuantity);
             var fNetPriceAmount = parseFloat(netPriceAmount);
             var fSubtotal = fOrderQuantity * fNetPriceAmount;
-            return isNaN(fSubtotal) ? "0.00" : fSubtotal.toFixed(2);
+            var formattedSubtotal = fSubtotal.toFixed(2); // Formatieren auf zwei Dezimalstellen
+            // Das Dezimaltrennzeichen ersetzen
+            formattedSubtotal = formattedSubtotal.replace('.', ',');
+            // Tausenderstellen mit einem Punkt trennen
+            formattedSubtotal = formattedSubtotal.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            return formattedSubtotal;
         },
+        
 
         onNavBack: function () {
             var oHistory = History.getInstance();
@@ -87,16 +89,24 @@ sap.ui.define([
 
         formatCashDiscount: function (days, percent) {
             if (percent !== undefined && percent !== null) {
-                // Format the percent value to 2 decimal places and replace '.' with ','
                 percent = parseFloat(percent).toFixed(2).replace('.', ',');
             }
             return days + " Tage, " + percent + " %";
         },
-        formatObjectHeaderAttributes: function(totalSubtotal) {
-            return [{
-                title: "Total Subtotal",
-                text: totalSubtotal
-            }];
+
+        // Funktion zur Ersetzung des Dezimaltrennzeichens und Trennung der Tausenderstellen
+        replaceDecimalSeparatorAndThousandSeparator: function(value) {
+            value = value.replace('.', ',');
+            value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            return value;
+        },
+
+
+        // Methode zur Formatierung des Gesamtsubtotals
+        formatTotalSubtotal: function(totalSubtotal) {
+            totalSubtotal = parseFloat(totalSubtotal).toFixed(2);
+            totalSubtotal = this.replaceDecimalSeparatorAndThousandSeparator(totalSubtotal);
+            return totalSubtotal;
         }
 
     });
