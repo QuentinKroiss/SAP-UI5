@@ -24,7 +24,7 @@ sap.ui.define([
 
             aItems.forEach(function (oItem) {
                 var oContext = oItem.getBindingContext();
-                var fOrderQuantity = parseFloat(oContext.getProperty("OrderQuantity"));
+                var fOrderQuantity = parseFloat(oContext.getProperty("OrderQuantity").replace(/\./g, ''));
                 var fNetPriceAmount = parseFloat(oContext.getProperty("NetPriceAmount"));
                 var fSubtotal = fOrderQuantity * fNetPriceAmount;
                 fTotal += isNaN(fSubtotal) ? 0 : fSubtotal;
@@ -34,7 +34,12 @@ sap.ui.define([
             var orderItemCount = aItems.length;
             oPanel.setHeaderText("Items (" + orderItemCount + ")");
 
-            this.getView().getModel("detailModel").setProperty("/totalSubtotal", this.formatTotalSubtotal(fTotal));
+            var oDetailModel = this.getView().getModel("detailModel");
+            oDetailModel.setProperty("/totalSubtotal", this.formatTotalSubtotal(fTotal));
+
+            // Set the total subtotal in the global model
+            var oGlobalModel = this.getOwnerComponent().getModel("globalModel");
+            oGlobalModel.setProperty("/totalSubtotal", this.formatTotalSubtotal(fTotal));
         },
 
         updateOrderItemCount: function() {
@@ -51,17 +56,14 @@ sap.ui.define([
         },
 
         calculateSubtotal: function(orderQuantity, netPriceAmount) {
-            var fOrderQuantity = parseFloat(orderQuantity);
+            var fOrderQuantity = parseFloat(orderQuantity.replace(/\./g, ''));
             var fNetPriceAmount = parseFloat(netPriceAmount);
             var fSubtotal = fOrderQuantity * fNetPriceAmount;
             var formattedSubtotal = fSubtotal.toFixed(2); // Formatieren auf zwei Dezimalstellen
-            // Das Dezimaltrennzeichen ersetzen
-            formattedSubtotal = formattedSubtotal.replace('.', ',');
             // Tausenderstellen mit einem Punkt trennen
             formattedSubtotal = formattedSubtotal.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
             return formattedSubtotal;
         },
-        
 
         onNavBack: function () {
             var oHistory = History.getInstance();
@@ -101,13 +103,11 @@ sap.ui.define([
             return value;
         },
 
-
         // Methode zur Formatierung des Gesamtsubtotals
         formatTotalSubtotal: function(totalSubtotal) {
             totalSubtotal = parseFloat(totalSubtotal).toFixed(2);
             totalSubtotal = this.replaceDecimalSeparatorAndThousandSeparator(totalSubtotal);
             return totalSubtotal;
         }
-
     });
 });

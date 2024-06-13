@@ -18,8 +18,7 @@
     titleActive="true"
     number="{detailModel>/totalSubtotal}"
     numberUnit="{DocumentCurrency}"
-    class="sapMHeader-CTX detailBackground"
->
+    class="sapMHeader-CTX detailBackground">
     <attributes>
         <ObjectAttribute title="Created By" text="{CreatedByUser}" class="detailCreatedBy"/>
         <ObjectAttribute text="Last Changed at: {path: 'LastChangeDateTime', formatter: '.formatter.dateFormatter'}" />
