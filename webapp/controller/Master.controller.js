@@ -3,13 +3,13 @@ sap.ui.define([
     "sap/ui/core/UIComponent",
     "ui5/walkthrough/models/formatter",
     "sap/ui/model/json/JSONModel"
-], function(Controller, UIComponent, formatter, JSONModel) {
+], function (Controller, UIComponent, formatter, JSONModel) {
     "use strict";
 
     return Controller.extend("ui5.walkthrough.controller.Master", {
         formatter: formatter,
 
-        onInit: function() {
+        onInit: function () {
             var oModel = new JSONModel({
                 orderCount: 0,
                 selectedOrder: {}
@@ -17,7 +17,7 @@ sap.ui.define([
             this.getView().setModel(oModel, "orderModel");
         },
 
-        onSearch: function(oEvent) {
+        onSearch: function (oEvent) {
             var sQuery = oEvent.getParameter("newValue");
             var aFilters = [];
             if (sQuery && sQuery.length > 0) {
@@ -35,14 +35,14 @@ sap.ui.define([
             oBinding.filter(aFilters);
         },
 
-        updateOrderCount: function() {
+        updateOrderCount: function () {
             var oList = this.getView().byId("PurchaseOrderList");
             var oOrders = oList.getItems();
             var orderCount = oOrders.length;
             this.getView().getModel("orderModel").setProperty("/orderCount", orderCount);
         },
 
-        onOrderPress: function(oEvent) {
+        onOrderPress: function (oEvent) {
             var oItem = oEvent.getSource().getSelectedItem();
             var oContext = oItem.getBindingContext();
             var oSelectedOrder = oContext.getObject();
@@ -56,6 +56,12 @@ sap.ui.define([
             oDetailPage.bindElement({
                 path: oContext.getPath()
             });
-        }
+        },
+
+        fetchPriceData: function (purchaseOrder) {
+            
+            return "1";
+        },
+
     });
 });
