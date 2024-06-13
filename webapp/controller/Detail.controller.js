@@ -60,6 +60,8 @@ sap.ui.define([
             var fNetPriceAmount = parseFloat(netPriceAmount);
             var fSubtotal = fOrderQuantity * fNetPriceAmount;
             var formattedSubtotal = fSubtotal.toFixed(2); // Formatieren auf zwei Dezimalstellen
+            // Das Dezimaltrennzeichen ersetzen
+            formattedSubtotal = formattedSubtotal.replace('.', ',');
             // Tausenderstellen mit einem Punkt trennen
             formattedSubtotal = formattedSubtotal.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
             return formattedSubtotal;
