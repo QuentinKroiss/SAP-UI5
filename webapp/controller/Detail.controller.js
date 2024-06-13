@@ -36,10 +36,6 @@ sap.ui.define([
 
             var oDetailModel = this.getView().getModel("detailModel");
             oDetailModel.setProperty("/totalSubtotal", this.formatTotalSubtotal(fTotal));
-
-            // Set the total subtotal in the global model
-            var oGlobalModel = this.getOwnerComponent().getModel("globalModel");
-            oGlobalModel.setProperty("/totalSubtotal", this.formatTotalSubtotal(fTotal));
         },
 
         updateOrderItemCount: function() {
