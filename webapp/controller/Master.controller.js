@@ -56,12 +56,8 @@ sap.ui.define([
             oDetailPage.bindElement({
                 path: oContext.getPath()
             });
-        },
-
-        fetchPriceData: function (purchaseOrder) {
-            
-            return "1";
-        },
+            oSplitApp.to('__xmlview2')
+        }
 
     });
 });

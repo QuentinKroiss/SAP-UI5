@@ -15,6 +15,7 @@ sap.ui.define([
                 orderItemCount: 0,
             });
             this.getView().setModel(oModel, "detailModel");
+            this._oSplitApp = this.byId("overviewSplitApp");
         },
 
         onTableUpdateFinished: function () {
@@ -106,6 +107,20 @@ sap.ui.define([
             totalSubtotal = parseFloat(totalSubtotal).toFixed(2);
             totalSubtotal = this.replaceDecimalSeparatorAndThousandSeparator(totalSubtotal);
             return totalSubtotal;
+        },
+        onNavToOrderItemDetail: function(oEvent) {
+
+            //console.log(this.getView().byId("purchaseOrderTable").getItems())
+            //console.log(oEvent.getSource().mAggregations.customData[0].mProperties.value);
+            let purchaseOrder = oEvent.getSource().mAggregations.customData[0].mProperties.value;
+            let purchaseOrderItem = oEvent.getSource().mAggregations.customData[1].mProperties.value
+            var eventBus = sap.ui.getCore().getEventBus();
+            eventBus.publish("OrderDetailChannel", "onNavigateEvent", { purchaseOrder : purchaseOrder, purchaseOrderItem : purchaseOrderItem });
+            this.getView().getParent().getParent().to("__xmlview3");
+
+            //var oController = sap.ui.getCore().byId("container-walkthrough---Home").getController();
+
+                //oController.onRouteFromDetail(purchaseOrder, purchaseOrderItem);
         }
     });
 });

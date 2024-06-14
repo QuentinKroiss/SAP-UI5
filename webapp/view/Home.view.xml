@@ -10,6 +10,7 @@
         </masterPages>
         <detailPages>
             <mvc:XMLView viewName="ui5.walkthrough.view.Detail" />
+            <mvc:XMLView viewName="ui5.walkthrough.view.OrderItemDetail" />
         </detailPages>
     </SplitApp>
 </mvc:View>

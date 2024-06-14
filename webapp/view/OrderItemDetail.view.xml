@@ -1,0 +1,23 @@
+<mvc:View controllerName="ui5.walkthrough.controller.OrderItemDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f" displayBlock="true">
+    <Page id="orderItemDetail" 
+    title="Order Item Detail"
+    >
+        <customHeader>
+            <OverflowToolbar class="sapMHeader-CTX detailBackground">
+                <OverflowToolbarButton tooltip="Go Back" text="Go Back" icon="sap-icon://nav-back" press="onPressDetailBack"/>
+                <ToolbarSpacer />
+                <Title text="Order Item Details" />
+                <ToolbarSpacer />
+                <OverflowToolbarButton tooltip="Go Up" text="Go Up" icon="sap-icon://up" press="onPressDetailUp"/>
+                <OverflowToolbarButton tooltip="Go Down" text="Go Donw" icon="sap-icon://down" press="onPressDetailDown"/>
+            </OverflowToolbar>
+        </customHeader>
+        <content>
+            <Text text="{orderItemModel>/NetPriceAmount}" />
+
+        </content>
+    </Page>
+</mvc:View>
