@@ -16,6 +16,7 @@
             </OverflowToolbar>
         </customHeader>
         <content>
+            <Text text="{orderItemModel>/PurchaseOrderItemText}" />
             <Text text="{orderItemModel>/NetPriceAmount}" />
 
         </content>
