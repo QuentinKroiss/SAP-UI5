@@ -16,9 +16,73 @@
             </OverflowToolbar>
         </customHeader>
         <content>
-            <Text text="{orderItemModel>/PurchaseOrderItemText}" />
-            <Text text="{orderItemModel>/NetPriceAmount}" />
-
+            <ObjectHeader
+                title="{orderItemModel>/PurchaseOrderItemText}"
+                number="{orderItemModel>/Subtotal}"
+                numberUnit="USD">
+                <attributes>
+                    <ObjectAttribute title="{orderItemModel>/NetPriceAmount} Each" />
+                    <ObjectAttribute title="Standard" />
+                </attributes>
+            </ObjectHeader>
+            <VBox class="sapUiSmallMargin">
+                <Text text="Information" class="sapMLabelBold" />
+                <ObjectAttribute title="Material Group" text="Mechanics (00104)" />
+                <Text text="Delivery on November 15, 2015" class="sapMLabelBold" />
+                <ObjectAttribute title="Plant" text="Atlanta" />
+                <ObjectAttribute title="Address" text="867 1 300 Peach tree street South, Atlanta GA 30310 , United States" />
+            </VBox>
+            <VBox class="sapUiSmallMargin">
+                <Text text="Notes" class="sapMLabelBold" />
+                <ObjectListItem title="Pls attach according ISO XXX Certificate" intro="James Blake" />
+                <ObjectListItem title="Gamiso Digital Camera RLX 4507-2000" intro="Mary" />
+            </VBox>
+            <VBox class="sapUiSmallMargin">
+                <Text text="Account Assignment" class="sapMLabelBold" />
+                <Table items="{/AccountAssignment}">
+                    <columns>
+                        <Column>
+                            <Text text="Objects" />
+                        </Column>
+                        <Column>
+                            <Text text="G/L Account" />
+                        </Column>
+                        <Column hAlign="End">
+                            <Text text="Share" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="Purchasing 2 (9362)" />
+                                <Text text="Raw Materials - Others (400000)" />
+                                <Text text="100 %" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </VBox>
+            <VBox class="sapUiSmallMargin">
+                <Text text="Pricing Conditions" class="sapMLabelBold" />
+                <Table items="{/PricingConditions}">
+                    <columns>
+                        <Column>
+                            <Text text="Description" />
+                        </Column>
+                        <Column>
+                            <Text text="Price" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="Gross Price (PBXX)" />
+                                <Text text="78 USD" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </VBox>
         </content>
     </Page>
 </mvc:View>
