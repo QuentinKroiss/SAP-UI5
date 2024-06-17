@@ -17,6 +17,7 @@ sap.ui.define([
             this.getView().setModel(oModel, "orderModel");
         },
 
+
         onSearch: function (oEvent) {
             var sQuery = oEvent.getParameter("newValue");
             var aFilters = [];
@@ -33,6 +34,7 @@ sap.ui.define([
             var oList = this.getView().byId("PurchaseOrderList");
             var oBinding = oList.getBinding("items");
             oBinding.filter(aFilters);
+            
         },
 
         updateOrderCount: function () {
@@ -40,6 +42,7 @@ sap.ui.define([
             var oOrders = oList.getItems();
             var orderCount = oOrders.length;
             this.getView().getModel("orderModel").setProperty("/orderCount", orderCount);
+
         },
 
         onOrderPress: function (oEvent) {

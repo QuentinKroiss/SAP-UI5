@@ -158,5 +158,17 @@
                 </Table>
             </content>
         </Panel>
+        <footer>
+			<OverflowToolbar id="otbFooter" class="footerToolbar">
+				<ToolbarSpacer/>
+				<Button type="Accept" text="Accept" press="onPressAccept">
+					<layoutData><OverflowToolbarLayoutData priority="NeverOverflow" /></layoutData>
+				</Button>
+				<Button type="Reject" text="Reject" press="onPressReject">
+					<layoutData><OverflowToolbarLayoutData priority="NeverOverflow" /></layoutData>
+				</Button>
+
+			</OverflowToolbar>
+		</footer>
     </Page>
 </mvc:View>

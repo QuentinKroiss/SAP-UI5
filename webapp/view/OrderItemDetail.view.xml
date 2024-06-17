@@ -1,7 +1,9 @@
 <mvc:View controllerName="ui5.walkthrough.controller.OrderItemDetail"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
-    xmlns:f="sap.f" displayBlock="true">
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core"
+     displayBlock="true">
     <Page id="orderItemDetail" 
     title="Order Item Detail"
     >
@@ -21,25 +23,48 @@
                 number="{orderItemModel>/Subtotal}"
                 numberUnit="USD">
                 <attributes>
-                    <ObjectAttribute title="{orderItemModel>/NetPriceAmount} Each" />
-                    <ObjectAttribute title="Standard" />
+                    <ObjectAttribute title="{orderItemModel>/NetPriceAmount} Each" class="sapMLabelBold" />
+                    <ObjectAttribute title="Standard" class="sapMLabelBold" />
                 </attributes>
             </ObjectHeader>
             <VBox class="sapUiSmallMargin">
-                <Text text="Information" class="sapMLabelBold" />
-                <ObjectAttribute title="Material Group" text="Mechanics (00104)" />
-                <Text text="Delivery on November 15, 2015" class="sapMLabelBold" />
-                <ObjectAttribute title="Plant" text="Atlanta" />
-                <ObjectAttribute title="Address" text="867 1 300 Peach tree street South, Atlanta GA 30310 , United States" />
+                <VBox class="orderItemDetailBorder" ><Text text="Information" class="sapMLabelBold orderItemDetailHeader" />
+
+                </VBox>
+                <ObjectAttribute title="Material Group" text="Mechanics (00104)" class="orderItemDetailText" />
+                <VBox class="orderItemDetailBorder" ><Text text="Delivery on November 15, 2015" class="sapMLabelBold orderItemDetailHeader" /></VBox>
+                 
+                <ObjectAttribute title="Plant" text="Atlanta" class="orderItemDetailText" />
+                <ObjectAttribute title="Address" text="867 1 300 Peach tree street South, Atlanta GA 30310 , United States" class="orderItemDetailText" />
             </VBox>
             <VBox class="sapUiSmallMargin">
                 <Text text="Notes" class="sapMLabelBold" />
-                <ObjectListItem title="Pls attach according ISO XXX Certificate" intro="James Blake" />
-                <ObjectListItem title="Gamiso Digital Camera RLX 4507-2000" intro="Mary" />
+                <CustomListItem>
+                    <HBox alignItems="Center">
+                        <core:Icon src="sap-icon://person-placeholder" class="personIcon"/>
+                        <VBox justifyContent="Start" alignItems="Start" width="100%" class="customMarginTop">
+                            <HBox>
+                                <Text text="Diese Bestellung ist dringend für die Produktion." class="sapUiTinyMarginEnd"/>
+                            </HBox>
+                            <Text text="Mary" class="createdByText1"/>
+                        </VBox>
+                    </HBox>
+                </CustomListItem>
+                <CustomListItem>
+                    <HBox alignItems="Center">
+                        <core:Icon src="sap-icon://person-placeholder" class="personIcon"/>
+                        <VBox justifyContent="Start" alignItems="Start" width="100%" class="customMarginTop">
+                            <HBox>
+                                <Text text="Bitte Bestellschein ergänzen." class="sapUiTinyMarginEnd"/>
+                            </HBox>
+                            <Text text="John" class="createdByText1"/>
+                        </VBox>
+                    </HBox>
+                </CustomListItem>
             </VBox>
             <VBox class="sapUiSmallMargin">
-                <Text text="Account Assignment" class="sapMLabelBold" />
-                <Table items="{/AccountAssignment}">
+                <Text text="Account Assignment" class="sapMLabelBold orderItemDetailHeader" />
+                <Table >
                     <columns>
                         <Column>
                             <Text text="Objects" />
@@ -54,7 +79,7 @@
                     <items>
                         <ColumnListItem>
                             <cells>
-                                <Text text="Purchasing 2 (9362)" />
+                                <Text text="{orderItemModel>/Subtotal}" />
                                 <Text text="Raw Materials - Others (400000)" />
                                 <Text text="100 %" />
                             </cells>
@@ -64,7 +89,7 @@
             </VBox>
             <VBox class="sapUiSmallMargin">
                 <Text text="Pricing Conditions" class="sapMLabelBold" />
-                <Table items="{/PricingConditions}">
+                <Table items="{orderItemModel}">
                     <columns>
                         <Column>
                             <Text text="Description" />

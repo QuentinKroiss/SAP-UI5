@@ -31,5 +31,10 @@
                 </attributes>
             </ObjectListItem>
         </List>
+        <footer>
+			<OverflowToolbar id="otbFooter" class="footerToolbar">
+
+			</OverflowToolbar>
+		</footer>
     </Page>
 </mvc:View>
