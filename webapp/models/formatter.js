@@ -31,10 +31,15 @@ sap.ui.define([], function () {
                         let sum = 0;
 
                         oData.results.forEach(element => {
-                            sum = parseFloat(element.NetPriceAmount * element.OrderQuantity) + sum
-
+                            // Replace dots in OrderQuantity before converting to float
+                            let orderQuantity = parseFloat(element.OrderQuantity.replace(/\./g, ''));
+                            let netPriceAmount = parseFloat(element.NetPriceAmount);
+                            sum += netPriceAmount * orderQuantity;
                         });
-                        let formattedSum = parseFloat(sum.toFixed(2));
+
+                        // Format the sum with two decimal places and thousand separator
+                        let formattedSum = sum.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
                         resolve(formattedSum);
                     },
                     error: function (oError) {
@@ -44,7 +49,6 @@ sap.ui.define([], function () {
                     }
                 });
             });
-
         }
     };
 });

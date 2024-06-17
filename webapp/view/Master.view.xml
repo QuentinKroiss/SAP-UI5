@@ -17,12 +17,15 @@
         </subHeader>
         <List
             id="PurchaseOrderList"
-            items="{/A_PurchaseOrder}"
+            items="{
+                path: '/A_PurchaseOrder',
+                filters: [{ path: 'ReleaseIsNotCompleted', operator: 'EQ', value1: true }]
+            }"
             mode="SingleSelectMaster"
             includeItemInSelection="true"
             updateFinished=".updateOrderCount"
             selectionChange=".onOrderPress">
-            <ObjectListItem press=".onOrderPress" title="{AddressName}" number="{path: 'PurchaseOrder', formatter: '.formatter.fetchPriceOrderFormatter'}" numberUnit="{DocumentCurrency}" class="createdByText" >
+            <ObjectListItem press=".onOrderPress" title="{AddressName}"  number="{path: 'PurchaseOrder', formatter: '.formatter.fetchPriceOrderFormatter'}" numberUnit="{DocumentCurrency}"  >
                 <firstStatus>
                     <ObjectStatus text="{path: 'LastChangeDateTime', formatter: '.formatter.dateFormatter'}" class="createdByText" />
                 </firstStatus>
