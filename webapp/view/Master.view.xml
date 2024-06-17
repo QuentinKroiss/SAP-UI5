@@ -22,7 +22,7 @@
             includeItemInSelection="true"
             updateFinished=".updateOrderCount"
             selectionChange=".onOrderPress">
-            <ObjectListItem press=".onOrderPress" title="{AddressName}" number="1" numberUnit="{DocumentCurrency}" class="createdByText" >
+            <ObjectListItem press=".onOrderPress" title="{AddressName}" number="{path: 'PurchaseOrder', formatter: '.formatter.fetchPriceOrderFormatter'}" numberUnit="{DocumentCurrency}" class="createdByText" >
                 <firstStatus>
                     <ObjectStatus text="{path: 'LastChangeDateTime', formatter: '.formatter.dateFormatter'}" class="createdByText" />
                 </firstStatus>
@@ -31,5 +31,10 @@
                 </attributes>
             </ObjectListItem>
         </List>
+        <footer>
+			<OverflowToolbar id="otbFooter" class="footerToolbar">
+
+			</OverflowToolbar>
+		</footer>
     </Page>
 </mvc:View>

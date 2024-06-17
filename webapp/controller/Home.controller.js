@@ -26,6 +26,18 @@ sap.ui.define([
                     type: "XML"
                 }));
             }
-        }
+        },
+        onRouteFromDetail: function(purchaseOrder, purchaseOrderItem) {
+            this.getSplitAppObj().to("__xmlview3");
+            console.log("Function test_function called with parameters: purchaseOrder=" + purchaseOrder + ", purchaseOrderItem=" + purchaseOrderItem);
+        },
+
+        getSplitAppObj: function () {
+			var result = this.byId("overviewSplitApp");
+			if (!result) {
+				console.log("SplitApp object can't be found");
+			}
+			return result;
+		}
     });
 });

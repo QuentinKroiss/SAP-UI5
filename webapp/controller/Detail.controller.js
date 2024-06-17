@@ -3,18 +3,20 @@ sap.ui.define([
     "sap/ui/core/UIComponent",
     "ui5/walkthrough/models/formatter",
     "sap/ui/core/routing/History",
-    "sap/ui/model/json/JSONModel"
-], function (Controller, UIComponent, formatter, History, JSONModel) {
+    "sap/ui/model/json/JSONModel",
+    'sap/m/MessageToast'
+], function (Controller, UIComponent, formatter, History, JSONModel,MessageToast) {
     "use strict";
 
     return Controller.extend("ui5.walkthrough.controller.Detail", {
         formatter: formatter,
 
-        onInit: function() {
+        onInit: function () {
             var oModel = new JSONModel({
                 orderItemCount: 0,
             });
             this.getView().setModel(oModel, "detailModel");
+            this._oSplitApp = this.byId("overviewSplitApp");
         },
 
         onTableUpdateFinished: function () {
@@ -38,20 +40,20 @@ sap.ui.define([
             oDetailModel.setProperty("/totalSubtotal", this.formatTotalSubtotal(fTotal));
         },
 
-        updateOrderItemCount: function() {
+        updateOrderItemCount: function () {
             var oList = this.getView().byId("purchaseOrderTable");
             var aOrderItems = oList.getItems();
             var orderItemCount = aOrderItems.length;
             this.getView().getModel("detailModel").setProperty("/orderItemCount", orderItemCount);
         },
 
-        formatPricePerPiece: function(price) {
+        formatPricePerPiece: function (price) {
             price = price.replace('.', ',');
             price = price.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
             return price;
         },
 
-        calculateSubtotal: function(orderQuantity, netPriceAmount) {
+        calculateSubtotal: function (orderQuantity, netPriceAmount) {
             var fOrderQuantity = parseFloat(orderQuantity.replace(/\./g, ''));
             var fNetPriceAmount = parseFloat(netPriceAmount);
             var fSubtotal = fOrderQuantity * fNetPriceAmount;
@@ -95,17 +97,83 @@ sap.ui.define([
         },
 
         // Funktion zur Ersetzung des Dezimaltrennzeichens und Trennung der Tausenderstellen
-        replaceDecimalSeparatorAndThousandSeparator: function(value) {
+        replaceDecimalSeparatorAndThousandSeparator: function (value) {
             value = value.replace('.', ',');
             value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
             return value;
         },
 
         // Methode zur Formatierung des Gesamtsubtotals
-        formatTotalSubtotal: function(totalSubtotal) {
+        formatTotalSubtotal: function (totalSubtotal) {
             totalSubtotal = parseFloat(totalSubtotal).toFixed(2);
             totalSubtotal = this.replaceDecimalSeparatorAndThousandSeparator(totalSubtotal);
             return totalSubtotal;
+        },
+        onNavToOrderItemDetail: function (oEvent) {
+
+            //console.log(this.getView().byId("purchaseOrderTable").getItems())
+            //console.log(oEvent.getSource().mAggregations.customData[0].mProperties.value);
+            let purchaseOrder = oEvent.getSource().mAggregations.customData[0].mProperties.value;
+            let purchaseOrderItem = oEvent.getSource().mAggregations.customData[1].mProperties.value
+            var eventBus = sap.ui.getCore().getEventBus();
+            eventBus.publish("OrderDetailChannel", "onNavigateEvent", { purchaseOrder: purchaseOrder, purchaseOrderItem: purchaseOrderItem });
+            this.getView().getParent().getParent().to("__xmlview3");
+
+            //var oController = sap.ui.getCore().byId("container-walkthrough---Home").getController();
+
+            //oController.onRouteFromDetail(purchaseOrder, purchaseOrderItem);
+        },
+        onPressAccept: function () {
+
+            let purchaseOrderPath = this.getView().getBindingContext().sPath.substring(18);
+            let purchaseOrderNumber = purchaseOrderPath.substring(0, purchaseOrderPath.length - 2);
+            console.log(purchaseOrderNumber);
+            let oHeaders = {
+                "X-Requested-With": "XMLHttpRequest",
+                "X-CSRF-Token": "Fetch"
+            };
+            let oURLParameters = {
+                "sap-client": "100",
+                PurchaseOrder: purchaseOrderNumber
+            }
+            this.getView().getModel().callFunction("/release",{
+                method: "POST",
+                urlParameters: oURLParameters,
+                headers: oHeaders,
+                success: jQuery.proxy(function() {
+                    MessageToast.show("Bestellung erfolgreich angenommen");
+                }, this),
+                error: jQuery.proxy(function() {
+                    console.log("Fehler")
+                    MessageToast.show("Das hat leider nicht geklappt bitte nochmal versuchen");
+                }, this)
+            });
+        },
+        onPressReject: function () {
+
+            let purchaseOrderPath = this.getView().getBindingContext().sPath.substring(18);
+            let purchaseOrderNumber = purchaseOrderPath.substring(0, purchaseOrderPath.length - 2);
+            console.log(purchaseOrderNumber);
+            let oHeaders = {
+                "X-Requested-With": "XMLHttpRequest",
+                "X-CSRF-Token": "Fetch"
+            };
+            let oURLParameters = {
+                "sap-client": "100",
+                PurchaseOrder: purchaseOrderNumber
+            }
+            this.getView().getModel().callFunction("/reject",{
+                method: "POST",
+                urlParameters: oURLParameters,
+                headers: oHeaders,
+                success: jQuery.proxy(function() {
+                    MessageToast.show("Bestellung erfolgreich abgelehnt");
+                }, this),
+                error: jQuery.proxy(function() {
+                    console.log("Fehler")
+                    MessageToast.show("Das hat leider nicht geklappt bitte nochmal versuchen");
+                }, this)
+            });
         }
     });
 });

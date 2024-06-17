@@ -1,3 +1,18 @@
 .colorGrey {
     color: gray;
 }
+.orderItemDetailHeader{
+    font-size: 20pt;
+}
+.orderItemDetailBorder{
+    border-bottom: 2px gray solid;
+    margin-bottom: 1rem;
+}
+.orderItemDetailText{
+    font-weight: bold;
+    margin-left: 30%;
+    margin-bottom: 2%;
+}
+.footerToolbar{
+    background-color: #2f3c48 !important;
+}

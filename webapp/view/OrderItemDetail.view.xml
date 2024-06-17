@@ -1,0 +1,113 @@
+<mvc:View controllerName="ui5.walkthrough.controller.OrderItemDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core"
+     displayBlock="true">
+    <Page id="orderItemDetail" 
+    title="Order Item Detail"
+    >
+        <customHeader>
+            <OverflowToolbar class="sapMHeader-CTX detailBackground">
+                <OverflowToolbarButton tooltip="Go Back" text="Go Back" icon="sap-icon://nav-back" press="onPressDetailBack"/>
+                <ToolbarSpacer />
+                <Title text="Order Item Details" />
+                <ToolbarSpacer />
+                <OverflowToolbarButton tooltip="Go Up" text="Go Up" icon="sap-icon://up" press="onPressDetailUp"/>
+                <OverflowToolbarButton tooltip="Go Down" text="Go Donw" icon="sap-icon://down" press="onPressDetailDown"/>
+            </OverflowToolbar>
+        </customHeader>
+        <content>
+            <ObjectHeader
+                title="{orderItemModel>/PurchaseOrderItemText}"
+                number="{orderItemModel>/Subtotal}"
+                numberUnit="USD">
+                <attributes>
+                    <ObjectAttribute title="{orderItemModel>/NetPriceAmount} Each" class="sapMLabelBold" />
+                    <ObjectAttribute title="Standard" class="sapMLabelBold" />
+                </attributes>
+            </ObjectHeader>
+            <VBox class="sapUiSmallMargin">
+                <VBox class="orderItemDetailBorder" ><Text text="Information" class="sapMLabelBold orderItemDetailHeader" />
+
+                </VBox>
+                <ObjectAttribute title="Material Group" text="Mechanics (00104)" class="orderItemDetailText" />
+                <VBox class="orderItemDetailBorder" ><Text text="Delivery on November 15, 2015" class="sapMLabelBold orderItemDetailHeader" /></VBox>
+                 
+                <ObjectAttribute title="Plant" text="Atlanta" class="orderItemDetailText" />
+                <ObjectAttribute title="Address" text="867 1 300 Peach tree street South, Atlanta GA 30310 , United States" class="orderItemDetailText" />
+            </VBox>
+            <VBox class="sapUiSmallMargin">
+                <Text text="Notes" class="sapMLabelBold" />
+                <CustomListItem>
+                    <HBox alignItems="Center">
+                        <core:Icon src="sap-icon://person-placeholder" class="personIcon"/>
+                        <VBox justifyContent="Start" alignItems="Start" width="100%" class="customMarginTop">
+                            <HBox>
+                                <Text text="Diese Bestellung ist dringend für die Produktion." class="sapUiTinyMarginEnd"/>
+                            </HBox>
+                            <Text text="Mary" class="createdByText1"/>
+                        </VBox>
+                    </HBox>
+                </CustomListItem>
+                <CustomListItem>
+                    <HBox alignItems="Center">
+                        <core:Icon src="sap-icon://person-placeholder" class="personIcon"/>
+                        <VBox justifyContent="Start" alignItems="Start" width="100%" class="customMarginTop">
+                            <HBox>
+                                <Text text="Bitte Bestellschein ergänzen." class="sapUiTinyMarginEnd"/>
+                            </HBox>
+                            <Text text="John" class="createdByText1"/>
+                        </VBox>
+                    </HBox>
+                </CustomListItem>
+            </VBox>
+            <VBox class="sapUiSmallMargin">
+                <Text text="Account Assignment" class="sapMLabelBold orderItemDetailHeader" />
+                <Table >
+                    <columns>
+                        <Column>
+                            <Text text="Objects" />
+                        </Column>
+                        <Column>
+                            <Text text="G/L Account" />
+                        </Column>
+                        <Column hAlign="End">
+                            <Text text="Share" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{orderItemModel>/Subtotal}" />
+                                <Text text="Raw Materials - Others (400000)" />
+                                <Text text="100 %" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </VBox>
+            <VBox class="sapUiSmallMargin">
+                <Text text="Pricing Conditions" class="sapMLabelBold" />
+                <Table items="{orderItemModel}">
+                    <columns>
+                        <Column>
+                            <Text text="Description" />
+                        </Column>
+                        <Column>
+                            <Text text="Price" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="Gross Price (PBXX)" />
+                                <Text text="78 USD" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>
