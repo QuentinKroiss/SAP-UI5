@@ -19,6 +19,14 @@ sap.ui.define([
             this._oSplitApp = this.byId("overviewSplitApp");
         },
 
+        formatOrderQuantity: function(orderQuantity) {
+            // Entferne alle Dezimalstellen
+            var sanitizedQuantity = orderQuantity.split('.')[0];
+            // Füge Tausendertrennzeichen hinzu
+            var formattedQuantity = sanitizedQuantity.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            return formattedQuantity;
+        },
+
         onTableUpdateFinished: function () {
             var oTable = this.byId("purchaseOrderTable");
             var aItems = oTable.getItems();
@@ -26,7 +34,7 @@ sap.ui.define([
 
             aItems.forEach(function (oItem) {
                 var oContext = oItem.getBindingContext();
-                var fOrderQuantity = parseFloat(oContext.getProperty("OrderQuantity").replace(/\./g, ''));
+                var fOrderQuantity = parseFloat(oContext.getProperty("OrderQuantity"));
                 var fNetPriceAmount = parseFloat(oContext.getProperty("NetPriceAmount"));
                 var fSubtotal = fOrderQuantity * fNetPriceAmount;
                 fTotal += isNaN(fSubtotal) ? 0 : fSubtotal;
@@ -54,7 +62,7 @@ sap.ui.define([
         },
 
         calculateSubtotal: function (orderQuantity, netPriceAmount) {
-            var fOrderQuantity = parseFloat(orderQuantity.replace(/\./g, ''));
+            var fOrderQuantity = parseFloat(orderQuantity);
             var fNetPriceAmount = parseFloat(netPriceAmount);
             var fSubtotal = fOrderQuantity * fNetPriceAmount;
             var formattedSubtotal = fSubtotal.toFixed(2); // Formatieren auf zwei Dezimalstellen

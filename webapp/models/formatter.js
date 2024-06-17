@@ -15,6 +15,7 @@ sap.ui.define([], function () {
                 (month < 10 ? "0" + month : month) + "." +
                 year;
         },
+        
         fetchPriceOrderFormatter: function (purchaseOrder) {
             return new Promise((resolve, reject) => {
                 // Access the view
@@ -32,7 +33,7 @@ sap.ui.define([], function () {
 
                         oData.results.forEach(element => {
                             // Replace dots in OrderQuantity before converting to float
-                            let orderQuantity = parseFloat(element.OrderQuantity.replace(/\./g, ''));
+                            let orderQuantity = parseFloat(element.OrderQuantity);
                             let netPriceAmount = parseFloat(element.NetPriceAmount);
                             sum += netPriceAmount * orderQuantity;
                         });

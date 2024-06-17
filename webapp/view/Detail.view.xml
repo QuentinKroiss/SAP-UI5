@@ -145,7 +145,7 @@
                             <cells>
                                 <Text text="{PurchaseOrderItemText}"/>
                                 <Text text="{PurchaseOrderItemCategory}"/>
-                                <Text text="{OrderQuantity}"/>
+                                <Text text="{path: 'OrderQuantity', formatter: '.formatOrderQuantity'}"/>
                                 <Text text="{ path: 'NetPriceAmount', formatter: '.formatPricePerPiece' }"/>
                                 <Text text="{parts: [{path: 'OrderQuantity'}, {path: 'NetPriceAmount'}], formatter: '.calculateSubtotal'}"/>
                             </cells>
