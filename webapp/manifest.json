@@ -23,28 +23,7 @@
         "resources": {
             "css": [
                 {
-                    "uri": "css/createdByText.css"
-                },
-                {
-                    "uri": "css/titleStyle.css"
-                },
-                {
-                    "uri": "css/detailBox.css"
-                },
-                {
-                    "uri": "css/customAdress.css"
-                },
-                {
-                    "uri": "css/detailCreatedBy.css"
-                },
-                {
-                    "uri": "css/labelTextSpacing.css"
-                },
-                {
-                    "uri": "css/colorGrey.css"
-                },
-                {
-                    "uri": "css/notes.css"
+                    "uri": "css/styles.css"
                 }
             ]
         },
@@ -66,13 +45,6 @@
                         "TargetHomeView"
                     ]
                 },
-                {
-                    "name": "StartScreenView",
-                    "pattern": "start",
-                    "target": [
-                        "StartScreenView"
-                    ]
-                },
                 
                 {
                     "name": "Detail",
@@ -90,14 +62,7 @@
                     "viewId": "Home",
                     "viewName": "Home"
                 },
-                "StartScreenView": {
-                    "viewType": "XML",
-                    "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewId": "StartScreen",
-                    "viewName": "StartScreen"
-                },
-
+            
                 "TargetDetailView": {
                     "viewType": "XML",
                     "transition": "slide",

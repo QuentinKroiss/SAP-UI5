@@ -1,0 +1,55 @@
+.sapMHeader-CTX.detailBackground {
+    background-color: rgb(238, 248, 251);
+}
+.customMarginTop {
+    margin-top: 12px; /* Adjust the value as needed */
+}
+
+.personIcon {
+    width: 1.5rem; /* Adjust the size as needed */
+    height: 1.5rem; /* Adjust the size as needed */
+    margin-right: 0.5rem; /* Adjust the spacing as needed */
+}
+.labelTextSpacing {
+    margin-left: 6px; /* Anpassen Sie den Wert, um den gewünschten Abstand zu erreichen */
+}
+.detailCreatedBy {
+    font-size: 11px;
+    color: #0A6ED1;
+}
+.detailBox {
+    background-color: #ebf2f7; /* Hier die gleiche Farbe wie die OverflowToolbar */
+    padding: 10px; /* Optional: etwas Abstand nach innen */
+
+}
+.customAdress {
+    font-size: 16px;
+    color: #0A6ED1;
+}
+.createdByText {
+    font-size: 11px; /* oder eine andere gewünschte Größe */
+    color: gray;
+}
+
+.createdByText1 {
+    font-size: 9px; /* oder eine andere gewünschte Größe */
+    color: gray;
+}
+.colorGrey {
+    color: gray;
+}
+.orderItemDetailHeader{
+    font-size: 20pt;
+}
+.orderItemDetailBorder{
+    border-bottom: 2px gray solid;
+    margin-bottom: 1rem;
+}
+.orderItemDetailText{
+    font-weight: bold;
+    margin-left: 30%;
+    margin-bottom: 2%;
+}
+.footerToolbar{
+    background-color: #2f3c48 !important;
+}
