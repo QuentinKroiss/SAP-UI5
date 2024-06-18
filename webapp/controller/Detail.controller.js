@@ -5,7 +5,7 @@ sap.ui.define([
     "sap/ui/core/routing/History",
     "sap/ui/model/json/JSONModel",
     'sap/m/MessageToast'
-], function (Controller, UIComponent, formatter, History, JSONModel,MessageToast) {
+], function (Controller, UIComponent, formatter, History, JSONModel, MessageToast) {
     "use strict";
 
     return Controller.extend("ui5.walkthrough.controller.Detail", {
@@ -19,7 +19,7 @@ sap.ui.define([
             this._oSplitApp = this.byId("overviewSplitApp");
         },
 
-        formatOrderQuantity: function(orderQuantity) {
+        formatOrderQuantity: function (orderQuantity) {
             // Entferne alle Dezimalstellen
             var sanitizedQuantity = orderQuantity.split('.')[0];
             // Füge Tausendertrennzeichen hinzu
@@ -133,55 +133,68 @@ sap.ui.define([
         },
         onPressAccept: function () {
 
-            let purchaseOrderPath = this.getView().getBindingContext().sPath.substring(18);
-            let purchaseOrderNumber = purchaseOrderPath.substring(0, purchaseOrderPath.length - 2);
-            console.log(purchaseOrderNumber);
-            let oHeaders = {
-                "X-Requested-With": "XMLHttpRequest",
-                "X-CSRF-Token": "Fetch"
-            };
-            let oURLParameters = {
-                "sap-client": "100",
-                PurchaseOrder: purchaseOrderNumber
+            try {
+                let purchaseOrderPath = this.getView().getBindingContext().sPath.substring(18);
+
+                let purchaseOrderNumber = purchaseOrderPath.substring(0, purchaseOrderPath.length - 2);
+                console.log(purchaseOrderNumber);
+                let oHeaders = {
+                    "X-Requested-With": "XMLHttpRequest",
+                    "X-CSRF-Token": "Fetch"
+                };
+                let oURLParameters = {
+                    "sap-client": "100",
+                    PurchaseOrder: purchaseOrderNumber
+                }
+                this.getView().getModel().callFunction("/release", {
+                    method: "POST",
+                    urlParameters: oURLParameters,
+                    headers: oHeaders,
+                    success: jQuery.proxy(function () {
+                        MessageToast.show("Bestellung erfolgreich angenommen");
+                    }, this),
+                    error: jQuery.proxy(function () {
+                        console.log("Fehler")
+                        MessageToast.show("Das hat leider nicht geklappt bitte nochmal versuchen");
+                    }, this)
+                });
+            } catch (error) {
+                MessageToast.show("Bitte wählen Sie eine Bestellung aus");
             }
-            this.getView().getModel().callFunction("/release",{
-                method: "POST",
-                urlParameters: oURLParameters,
-                headers: oHeaders,
-                success: jQuery.proxy(function() {
-                    MessageToast.show("Bestellung erfolgreich angenommen");
-                }, this),
-                error: jQuery.proxy(function() {
-                    console.log("Fehler")
-                    MessageToast.show("Das hat leider nicht geklappt bitte nochmal versuchen");
-                }, this)
-            });
+
         },
         onPressReject: function () {
 
-            let purchaseOrderPath = this.getView().getBindingContext().sPath.substring(18);
-            let purchaseOrderNumber = purchaseOrderPath.substring(0, purchaseOrderPath.length - 2);
-            console.log(purchaseOrderNumber);
-            let oHeaders = {
-                "X-Requested-With": "XMLHttpRequest",
-                "X-CSRF-Token": "Fetch"
-            };
-            let oURLParameters = {
-                "sap-client": "100",
-                PurchaseOrder: purchaseOrderNumber
+            try{
+
+                let purchaseOrderPath = this.getView().getBindingContext().sPath.substring(18);
+                let purchaseOrderNumber = purchaseOrderPath.substring(0, purchaseOrderPath.length - 2);
+                console.log(purchaseOrderNumber);
+                let oHeaders = {
+                    "X-Requested-With": "XMLHttpRequest",
+                    "X-CSRF-Token": "Fetch"
+                };
+                let oURLParameters = {
+                    "sap-client": "100",
+                    PurchaseOrder: purchaseOrderNumber
+                }
+                this.getView().getModel().callFunction("/reject", {
+                    method: "POST",
+                    urlParameters: oURLParameters,
+                    headers: oHeaders,
+                    success: jQuery.proxy(function () {
+                        MessageToast.show("Bestellung erfolgreich abgelehnt");
+                    }, this),
+                    error: jQuery.proxy(function () {
+                        console.log("Fehler")
+                        MessageToast.show("Das hat leider nicht geklappt bitte nochmal versuchen");
+                    }, this)
+                });
+
+            }catch(error){
+                MessageToast.show("Bitte wählen Sie eine Bestellung aus");
             }
-            this.getView().getModel().callFunction("/reject",{
-                method: "POST",
-                urlParameters: oURLParameters,
-                headers: oHeaders,
-                success: jQuery.proxy(function() {
-                    MessageToast.show("Bestellung erfolgreich abgelehnt");
-                }, this),
-                error: jQuery.proxy(function() {
-                    console.log("Fehler")
-                    MessageToast.show("Das hat leider nicht geklappt bitte nochmal versuchen");
-                }, this)
-            });
+
         }
     });
 });
