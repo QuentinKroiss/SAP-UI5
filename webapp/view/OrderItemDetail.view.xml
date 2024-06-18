@@ -21,7 +21,7 @@
             <ObjectHeader
                 title="{orderItemModel>/PurchaseOrderItemText}"
                 number="{orderItemModel>/Subtotal}"
-                numberUnit="USD">
+                numberUnit="{orderItemModel>/OrderPriceUnit}">
                 <attributes>
                     <ObjectAttribute title="{orderItemModel>/NetPriceAmount} Each" class="sapMLabelBold" />
                     <ObjectAttribute title="Standard" class="sapMLabelBold" />
@@ -31,11 +31,11 @@
                 <VBox class="orderItemDetailBorder" ><Text text="Information" class="sapMLabelBold orderItemDetailHeader" />
 
                 </VBox>
-                <ObjectAttribute title="Material Group" text="Mechanics (00104)" class="orderItemDetailText" />
+                <ObjectAttribute title="Material Group" text="{orderItemModel>/MaterialGroup}" class="orderItemDetailText" />
                 <VBox class="orderItemDetailBorder" ><Text text="Delivery on November 15, 2015" class="sapMLabelBold orderItemDetailHeader" /></VBox>
                  
-                <ObjectAttribute title="Plant" text="Atlanta" class="orderItemDetailText" />
-                <ObjectAttribute title="Address" text="867 1 300 Peach tree street South, Atlanta GA 30310 , United States" class="orderItemDetailText" />
+                <ObjectAttribute title="Plant" text="{orderItemModel>/Plant}" class="orderItemDetailText" />
+                <ObjectAttribute title="Address" text="{orderItemModel>/DeliveryAddressHouseNumber} {orderItemModel>/DeliveryAddressStreetName}, {orderItemModel>/DeliveryAddressCityName} {orderItemModel>/DeliveryAddressRegion} {orderItemModel>/DeliveryAddressPostalCode} , {orderItemModel>/DeliveryAddressCountry}" class="orderItemDetailText" />
             </VBox>
             <VBox class="sapUiSmallMargin">
                 <Text text="Notes" class="sapMLabelBold" />
@@ -79,8 +79,8 @@
                     <items>
                         <ColumnListItem>
                             <cells>
-                                <Text text="{orderItemModel>/Subtotal}" />
-                                <Text text="Raw Materials - Others (400000)" />
+                                <Text text="Purchasing 2 (9362) &#xA; Cost Center" />
+                                <Text text="Raw Materials - Others (4000)" />
                                 <Text text="100 %" />
                             </cells>
                         </ColumnListItem>
@@ -89,20 +89,20 @@
             </VBox>
             <VBox class="sapUiSmallMargin">
                 <Text text="Pricing Conditions" class="sapMLabelBold" />
-                <Table items="{orderItemModel}">
+                <Table >
                     <columns>
                         <Column>
                             <Text text="Description" />
                         </Column>
-                        <Column>
+                        <Column hAlign="End">
                             <Text text="Price" />
                         </Column>
                     </columns>
                     <items>
                         <ColumnListItem>
                             <cells>
-                                <Text text="Gross Price (PBXX)" />
-                                <Text text="78 USD" />
+                                <Text text="Gross Price ({orderItemModel>/OrderPriceUnit})" />
+                                <Text text="{orderItemModel>/NetPriceAmount} {orderItemModel>/DocumentCurrency}" />
                             </cells>
                         </ColumnListItem>
                     </items>

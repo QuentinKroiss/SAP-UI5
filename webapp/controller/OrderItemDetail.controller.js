@@ -96,8 +96,6 @@ sap.ui.define([
             oModel.read(sPath, {
                 success: function (oData) {
 
-                    //console.log(oData);
-                    //console.log(oData.PurchaseOrderItem);
                     oOrderItemModel.setData(oData);
                     let subtotal = parseFloat(oData.OrderQuantity) * parseFloat(oData.NetPriceAmount);
                     oOrderItemModel.setProperty("/Subtotal", subtotal.toFixed(2).replace('.', ','));
