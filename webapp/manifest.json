@@ -58,38 +58,31 @@
                 "controlId": "app",
                 "clearControlAggregation": false
             },
-			"routes": [
-   				 {
-        			"name": "StartScreenView",
-        			"pattern": "",
-        			"target": [
-            		"StartScreenView"
-        			]
-    			},
-    			{
-        "name": "RouteHomeView",
-        "pattern": "home",
-        "target": [
-            "TargetHomeView"
-        ]
-    },
-    {
-        "name": "Detail",
-        "pattern": "Detail/{orderId}",
-        "target": [
-            "TargetDetailView"
-        ]
-    }
-],
-
-            "targets": {
-                "StartScreenView": {
-                    "viewType": "XML",
-                    "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewId": "StartScreen",
-                    "viewName": "StartScreen"
+            "routes": [
+                {
+                    "name": "RouteHomeView",
+                    "pattern": "",
+                    "target": [
+                        "TargetHomeView"
+                    ]
                 },
+                {
+                    "name": "StartScreenView",
+                    "pattern": "start",
+                    "target": [
+                        "StartScreenView"
+                    ]
+                },
+                
+                {
+                    "name": "Detail",
+                    "pattern": "Detail/{orderId}",
+                    "target": [
+                        "TargetDetailView"
+                    ]
+                }
+            ],
+            "targets": {
                 "TargetHomeView": {
                     "viewType": "XML",
                     "transition": "slide",
@@ -97,6 +90,14 @@
                     "viewId": "Home",
                     "viewName": "Home"
                 },
+                "StartScreenView": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "StartScreen",
+                    "viewName": "StartScreen"
+                },
+
                 "TargetDetailView": {
                     "viewType": "XML",
                     "transition": "slide",
