@@ -19,14 +19,6 @@ sap.ui.define([
             this._oSplitApp = this.byId("overviewSplitApp");
         },
 
-        formatOrderQuantity: function (orderQuantity) {
-            // Entferne alle Dezimalstellen
-            var sanitizedQuantity = orderQuantity.split('.')[0];
-            // Füge Tausendertrennzeichen hinzu
-            var formattedQuantity = sanitizedQuantity.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-            return formattedQuantity;
-        },
-
         onTableUpdateFinished: function () {
             var oTable = this.byId("purchaseOrderTable");
             var aItems = oTable.getItems();
@@ -55,12 +47,6 @@ sap.ui.define([
             this.getView().getModel("detailModel").setProperty("/orderItemCount", orderItemCount);
         },
 
-        formatPricePerPiece: function (price) {
-            price = price.replace('.', ',');
-            price = price.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-            return price;
-        },
-
         calculateSubtotal: function (orderQuantity, netPriceAmount) {
             var fOrderQuantity = parseFloat(orderQuantity);
             var fNetPriceAmount = parseFloat(netPriceAmount);
@@ -85,25 +71,6 @@ sap.ui.define([
             }
         },
 
-        formatIncoterms: function (classification, location) {
-            if (classification && location) {
-                return classification + ", " + location;
-            } else if (classification) {
-                return classification;
-            } else if (location) {
-                return location;
-            } else {
-                return "";
-            }
-        },
-
-        formatCashDiscount: function (days, percent) {
-            if (percent !== undefined && percent !== null) {
-                percent = parseFloat(percent).toFixed(2).replace('.', ',');
-            }
-            return days + " Tage, " + percent + " %";
-        },
-
         // Funktion zur Ersetzung des Dezimaltrennzeichens und Trennung der Tausenderstellen
         replaceDecimalSeparatorAndThousandSeparator: function (value) {
             value = value.replace('.', ',');
@@ -117,6 +84,7 @@ sap.ui.define([
             totalSubtotal = this.replaceDecimalSeparatorAndThousandSeparator(totalSubtotal);
             return totalSubtotal;
         },
+        
         onNavToOrderItemDetail: function (oEvent) {
 
             let purchaseOrder = oEvent.getSource().mAggregations.customData[0].mProperties.value;

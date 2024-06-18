@@ -50,9 +50,9 @@
                                     <Text text="Payment Terms:" class="colorGrey"/>
                                 </FlexBox>
                                 <FlexBox justifyContent="Start" visible="{= (${CashDiscount1Days} !== null || ${CashDiscount1Percent} !== null) || (${CashDiscount2Days} !== null || ${CashDiscount2Percent} !== null)}">
-                                    <Text text="{ parts: [{path: 'CashDiscount1Days'}, {path: 'CashDiscount1Percent'}], formatter: '.formatCashDiscount' }" class="labelTextSpacing" />
+                                    <Text text="{ parts: [{path: 'CashDiscount1Days'}, {path: 'CashDiscount1Percent'}], formatter: '.formatter.formatCashDiscount' }" class="labelTextSpacing" />
                                     <Text text="/" class="labelTextSpacing" />
-                                    <Text text="{ parts: [{path: 'CashDiscount2Days'}, {path: 'CashDiscount2Percent'}], formatter: '.formatCashDiscount' }" class="labelTextSpacing" />
+                                    <Text text="{ parts: [{path: 'CashDiscount2Days'}, {path: 'CashDiscount2Percent'}], formatter: '.formatter.formatCashDiscount' }" class="labelTextSpacing" />
                                     <Text text="/" class="labelTextSpacing" />
                                     <Text text="{NetPaymentDays}" class="labelTextSpacing" />
                                     <Text text="Tage Netto" class="labelTextSpacing" />
@@ -63,7 +63,7 @@
                                     <Text text="Incoterms:" class="colorGrey"/>
                                 </FlexBox>
                                 <FlexBox justifyContent="Start">
-                                    <Text text="{ parts: [{path: 'IncotermsClassification'}, {path: 'IncotermsLocation1'}], formatter: '.formatIncoterms' }" class="labelTextSpacing" />
+                                    <Text text="{ parts: [{path: 'IncotermsClassification'}, {path: 'IncotermsLocation1'}], formatter: '.formatter.formatIncoterms' }" class="labelTextSpacing" />
                                 </FlexBox>
                             </HBox>
                             <HBox width="80%">
@@ -145,8 +145,8 @@
                             <cells>
                                 <Text text="{PurchaseOrderItemText}"/>
                                 <Text text="{PurchaseOrderItemCategory}"/>
-                                <Text text="{path: 'OrderQuantity', formatter: '.formatOrderQuantity'}"/>
-                                <Text text="{ path: 'NetPriceAmount', formatter: '.formatPricePerPiece' }"/>
+                                <Text text="{path: 'OrderQuantity', formatter: '.formatter.formatOrderQuantity'}"/>
+                                <Text text="{ path: 'NetPriceAmount', formatter: '.formatter.formatPricePerPiece' }"/>
                                 <Text text="{parts: [{path: 'OrderQuantity'}, {path: 'NetPriceAmount'}], formatter: '.calculateSubtotal'}"/>
                             </cells>
                             <customData>

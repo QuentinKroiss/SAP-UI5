@@ -15,6 +15,39 @@ sap.ui.define([], function () {
                 (month < 10 ? "0" + month : month) + "." +
                 year;
         },
+
+        formatPricePerPiece: function (price) {
+            price = price.replace('.', ',');
+            price = price.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            return price;
+        },
+
+        formatCashDiscount: function (days, percent) {
+            if (percent !== undefined && percent !== null) {
+                percent = parseFloat(percent).toFixed(2).replace('.', ',');
+            }
+            return days + " Tage, " + percent + " %";
+        },
+
+        formatIncoterms: function (classification, location) {
+            if (classification && location) {
+                return classification + ", " + location;
+            } else if (classification) {
+                return classification;
+            } else if (location) {
+                return location;
+            } else {
+                return "";
+            }
+        },
+
+        formatOrderQuantity: function (orderQuantity) {
+            // Entferne alle Dezimalstellen
+            var sanitizedQuantity = orderQuantity.split('.')[0];
+            // Füge Tausendertrennzeichen hinzu
+            var formattedQuantity = sanitizedQuantity.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            return formattedQuantity;
+        },
         
         fetchPriceOrderFormatter: function (purchaseOrder) {
             return new Promise((resolve, reject) => {
