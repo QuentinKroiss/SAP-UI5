@@ -5,7 +5,6 @@ sap.ui.define([
 
     return Controller.extend("ui5.walkthrough.controller.App", {
         onInit: function() {
-            // Initial setup if needed
         },
     },
 
