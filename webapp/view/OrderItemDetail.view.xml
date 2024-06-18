@@ -5,7 +5,7 @@
     xmlns:core="sap.ui.core"
      displayBlock="true">
     <Page id="orderItemDetail" 
-    title="Order Item Detail"
+    title="Order Item Details"
     >
         <customHeader>
             <OverflowToolbar class="sapMHeader-CTX detailBackground">
@@ -21,7 +21,7 @@
             <ObjectHeader
                 title="{orderItemModel>/PurchaseOrderItemText}"
                 number="{orderItemModel>/Subtotal}"
-                numberUnit="{orderItemModel>/OrderPriceUnit}">
+                numberUnit="{orderItemModel>/DocumentCurrency}">
                 <attributes>
                     <ObjectAttribute title="{orderItemModel>/NetPriceAmount} Each" class="sapMLabelBold" />
                     <ObjectAttribute title="Standard" class="sapMLabelBold" />
