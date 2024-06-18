@@ -24,11 +24,11 @@ sap.ui.define([], function () {
                 // Access the OData model
                 var oModel = oView.getModel();
 
-                // Example: Read data from the OData service
+                //Read data from the OData service
                 var sPath = "/A_PurchaseOrder('" + purchaseOrder + "')/to_PurchaseOrderItem";
                 oModel.read(sPath, {
                     success: function (oData) {
-                        // Process the returned data
+                        //Variable for SUM
                         let sum = 0;
 
                         oData.results.forEach(element => {
