@@ -1,9 +1,17 @@
 sap.ui.define([
-    "./BaseController",
-], function(Controller) {
+    "sap/ui/core/mvc/Controller",
+    "sap/ui/core/UIComponent",
+    "sap/m/library"
+], function(Controller, UIComponent, mobileLibrary) {
     "use strict";
 
     return Controller.extend("ui5.walkthrough.controller.Home", {
+        
+        _oDetails : undefined,
+        getRouter : function () {
+            return UIComponent.getRouterFor(this);
+        },
+        
         onInit: function() {
             var oRouter = this.getRouter();
             oRouter.attachRouteMatched(this.onRouteMatched, this);

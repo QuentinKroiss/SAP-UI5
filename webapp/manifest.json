@@ -34,21 +34,13 @@
                 "async": true,
                 "viewPath": "ui5.walkthrough.view",
                 "controlAggregation": "pages",
-                "controlId": "app",
+                "controlId": "overviewSplitApp",
                 "clearControlAggregation": false
             },
             "routes": [
                 {
-                    "name": "RouteHomeView",
+                    "name": "RouteDetailView",
                     "pattern": "",
-                    "target": [
-                        "TargetHomeView"
-                    ]
-                },
-                
-                {
-                    "name": "Detail",
-                    "pattern": "Detail/{orderId}",
                     "target": [
                         "TargetDetailView"
                     ]
@@ -73,7 +65,7 @@
             }
         },
         "rootView": {
-            "viewName": "ui5.walkthrough.view.App",
+            "viewName": "ui5.walkthrough.view.Home",
             "type": "XML"
         }
     }

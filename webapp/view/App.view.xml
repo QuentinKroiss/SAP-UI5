@@ -1,9 +1,0 @@
-<mvc:View
-    xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m"
-    displayBlock="true"
-    controllerName="ui5.walkthrough.controller.App">
-    <Shell id="shell" appWidthLimited="false" >
-         <App id="app"/>
-    </Shell>
-</mvc:View>
